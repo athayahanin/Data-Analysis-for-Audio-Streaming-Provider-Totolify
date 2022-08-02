@@ -1,0 +1,276 @@
+-- Database Creation Syntax
+CREATE DATABASE TOTOLFY_Database
+
+-- Table Creation Syntax
+CREATE TABLE Produser
+(
+id_prod NVARCHAR(50) NOT NULL,
+nama_prod NVARCHAR(50) NOT NULL,
+asal_negara NVARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Penyanyi
+(
+id_penyanyi NVARCHAR(50) NOT NULL,
+id_prod NVARCHAR(50) NOT NULL,
+nama_penyanyi NVARCHAR(50) NOT NULL,
+jumlah_album INT,
+monthly_listeners INT
+);
+
+CREATE TABLE Lagu
+(
+id_lagu NVARCHAR(50) NOT NULL,
+id_penyanyi NVARCHAR(50) NOT NULL,
+judul_lagu NVARCHAR(50) NOT NULL,
+listeners INT NOT NULL,
+genre NVARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Kategori
+(
+id_kategori NVARCHAR(50) NOT NULL,
+id_lagu NVARCHAR(50) NOT NULL,
+id_award NVARCHAR(50) NOT NULL,
+nama_kategori NVARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Award
+(
+id_award NVARCHAR(50) NOT NULL,
+nama_award NVARCHAR(50) NOT NULL,
+tahun_award INT NOT NULL,
+negara_award NVARCHAR(50) NOT NULL
+);
+
+CREATE TABLE [Detail Pengguna]
+(
+id_det_pengguna NVARCHAR(50) NOT NULL,
+id_pengguna NVARCHAR(50) NOT NULL,
+id_lagu NVARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Pengguna
+(
+id_pengguna NVARCHAR(50) NOT NULL,
+nama_pengguna NVARCHAR(50) NOT NULL,
+tgl_bergabung DATE NOT NULL,
+paket NVARCHAR(50) NOT NULL
+);
+
+-- Insert Syntax
+
+INSERT INTO Produser
+(id_prod,nama_prod,asal_negara)
+VALUES
+('PROD1','JYP','Korea'),
+('PROD2','Jack Antonoff','Inggris'),
+('PROD3','Tyler the Creator','Amerika'),
+('PROD4','Yovie Widianto','Indonesia'),
+('PROD5','Laleilmanino','Indonesia'),
+('PROD6','Kenzie','Korea'),
+('PROD7','Suga','Korea'),
+('PROD8','Melly Goeslaw','Indonesia'),
+('PROD9','Cha Cha Malone','Amerika'),
+('PROD10','Finneas','Amerika');
+
+
+INSERT INTO Penyanyi
+(id_penyanyi, id_prod, nama_penyanyi, jumlah_album, monthly_listeners)
+VALUES
+('PEN1','PROD2','Fun',2,8205193),
+('PEN2','PROD9','Jay Park',5,4288219),
+('PEN3','PROD4','Kahitna',8,778925),
+('PEN4','PROD10','Selena Gomez',3,35535528),
+('PEN5','PROD6','EXO',7,4470431),
+('PEN6','PROD2','Taylor Swift',9,54750321),
+('PEN7','PROD4','Rossa',14,1801277),
+('PEN8','PROD7','IU',5,5435292),
+('PEN9','PROD5','Marion Jola',1,734426),
+('PEN10','PROD2','Lorde',3,16148616),
+('PEN11','PROD8','BBB',NULL,40977),
+('PEN12','PROD10','Billie Eilish',2,47598495),
+('PEN13','PROD1','TWICE',6,10175213),
+('PEN14','PROD3','Frank Ocean',2,21577147),
+('PEN15','PROD8','Ari Lasso',6,854412),
+('PEN16','PROD6','BoA',20,932728),
+('PEN17','PROD1','Wonder Girls',3,614953),
+('PEN18','PROD2','Lana Del Rey',8,22321494),
+('PEN19','PROD4','Rio Febrian',6,252145),
+('PEN20','PROD1','Day6',4,2236112);
+
+
+INSERT INTO Lagu
+(id_lagu, id_penyanyi, judul_lagu, listeners, genre)
+VALUES
+('LAGU1','PEN15','Rahasia Perempuan',5953752,'Pop'),
+('LAGU2','PEN9','Jangan',37424966,'Pop'),
+('LAGU3','PEN14','Thinkin Bout You',588096843,'Contemporary R&B'),
+('LAGU4','PEN6','All Too Well',79008152,'Pop'),
+('LAGU5','PEN10','Royals',896589699,'Alternative/Indie'),
+('LAGU6','PEN4','Same Old Love',500585544,'Pop'),
+('LAGU7','PEN9','Rayu',44601522,'Pop'),
+('LAGU8','PEN7','Terlalu Cinta',50905089,'Pop'),
+('LAGU9','PEN15','Jika',17472739,'Pop Rock'),
+('LAGU10','PEN10','Greenlight',470507031,'Alternative/Indie'),
+('LAGU11','PEN3','Cerita Cinta',11192365,'Pop'),
+('LAGU12','PEN4','Lose You To Love Me',838846612,'Pop'),
+('LAGU13','PEN6','The 1',249907139,'Pop'),
+('LAGU14','PEN11','Lets Dance Together',1370167,'Pop'),
+('LAGU15','PEN12','Everything I Wanted',1038187253,'Alternative/Indie'),
+('LAGU16','PEN13','What is love',250125946,'Korean Pop'),
+('LAGU17','PEN3','Cantik',29354838,'Pop'),
+('LAGU18','PEN12','Bad Guy',2013088804,'Alternative/Indie'),
+('LAGU19','PEN13','Signal',72194419,'Korean Pop'),
+('LAGU20','PEN17','Nobody',3982211,'Korean Pop'),
+('LAGU21','PEN6','August',236593590,'Pop'),
+('LAGU22','PEN18','Summertime Sadness',499300766,'Indie Pop'),
+('LAGU23','PEN16','Better',10112706,'Korea Dance/Electronic'),
+('LAGU24','PEN3','Andai Dia Tahu',19222385,'Pop'),
+('LAGU25','PEN1','Some Nights',521204429,'Alternative/Indie'),
+('LAGU26','PEN2','Mommae',58505738,'Hip Hop'),
+('LAGU27','PEN5','Love Shot',216105661,'Korean Pop'),
+('LAGU28','PEN8','Celebrity',93850509,'Korean Pop'),
+('LAGU29','PEN18','Brooklyn Baby',235596926,'Indie Pop'),
+('LAGU30','PEN1','We Are Young',758484849,'Alternative/Indie');
+
+
+INSERT INTO Kategori
+(id_kategori, id_lagu, id_award, nama_kategori)
+VALUES
+('KAT01','LAGU8','AWARD6','Penyanyi Luar Negara Terbaik'),
+('KAT02','LAGU7','AWARD4','Karya Produksi Kolaborasi Terbaik'),
+('KAT03','LAGU14','AWARD9','Karya Produksi Dance/Electronic Dance Terbaik'),
+('KAT04','LAGU9','AWARD10','Duo/Grup/Kolaborasi Pop Progressive Terbaik'),
+('KAT05','LAGU20','AWARD5','Best Song'),
+('KAT06','LAGU19','AWARD2','Song of the Year'),
+('KAT07','LAGU28','AWARD3','Song of the Year (Digital Daesang)'),
+('KAT08','LAGU16','AWARD8','Song of the Year'),
+('KAT09','LAGU5','AWARD7','Best Pop Solo Performance'),
+('KAT10','LAGU18','AWARD1','Song of the Year');
+
+
+INSERT INTO Award
+(id_award, nama_award, tahun_award, negara_award)
+VALUES
+('AWARD1','Grammy',2020,'Amerika'),
+('AWARD2','MAMA',2017,'Korea'),
+('AWARD3','Golden Disc Award',2021,'Korea'),
+('AWARD4','Anugerah Musik Indonesia',2020,'Indonesia'),
+('AWARD5','Seoul Music Award',2008,'Korea'),
+('AWARD6','Anugerah Industri Musik',2020,'Malaysia'),
+('AWARD7','Grammy',2014,'Amerika'),
+('AWARD8','MAMA',2018,'Korea'),
+('AWARD9','Anugerah Musik Indonesia',2008,'Indonesia'),
+('AWARD10','Anugerah Musik Indonesia',2000,'Indonesia');
+
+
+INSERT INTO [Detail Pengguna]
+(id_det_pengguna, id_pengguna, id_lagu)
+VALUES
+('LISTEN01','USER4','LAGU17'),
+('LISTEN02','USER12','LAGU4'),
+('LISTEN03','USER12','LAGU17'),
+('LISTEN04','USER6','LAGU8'),
+('LISTEN05','USER2','LAGU8'),
+('LISTEN06','USER16','LAGU8'),
+('LISTEN07','USER16','LAGU3'),
+('LISTEN08','USER21','LAGU4'),
+('LISTEN09','USER4','LAGU5'),
+('LISTEN10','USER17','LAGU20'),
+('LISTEN11','USER12','LAGU20'),
+('LISTEN12','USER1','LAGU17'),
+('LISTEN13','USER2','LAGU14'),
+('LISTEN14','USER28','LAGU27'),
+('LISTEN15','USER5','LAGU4'),
+('LISTEN16','USER17','LAGU1'),
+('LISTEN17','USER5','LAGU13'),
+('LISTEN18','USER5','LAGU21'),
+('LISTEN19','USER5','LAGU4'),
+('LISTEN20','USER13','LAGU9'),
+('LISTEN21','USER15','LAGU23'),
+('LISTEN22','USER15','LAGU6'),
+('LISTEN23','USER18','LAGU7'),
+('LISTEN24','USER7','LAGU7'),
+('LISTEN25','USER8','LAGU21'),
+('LISTEN26','USER11','LAGU13'),
+('LISTEN27','USER32','LAGU4'),
+('LISTEN28','USER33','LAGU19'),
+('LISTEN29','USER23','LAGU8'),
+('LISTEN30','USER12','LAGU10');
+
+
+INSERT INTO Pengguna
+(id_pengguna, nama_pengguna, tgl_bergabung, paket)
+VALUES
+('USER1','Indra','2019-03-23','regular'),
+('USER2','Alif',' 2018-02-05','regular'),
+('USER3','Della',' 2021-11-09','regular'),
+('USER4','Larissa',' 2022-01-03','premium'),
+('USER5','Aulia',' 2017-03-11','premium'),
+('USER6','Miranti',' 2020-09-26','regular'),
+('USER7','Jeni',' 2017-10-14','premium'),
+('USER8','Ainun',' 2018-04-01','regular'),
+('USER9','Tya',' 2020-07-15','regular'),
+('USER10','Dita',' 2021-12-22','regular'),
+('USER11','Widya',' 2020-02-11','premium'),
+('USER12','Della',' 2017-10-02','regular'),
+('USER13','Annisa',' 2021-05-02','premium'),
+('USER14','Fuadi',' 2017-11-11','regular'),
+('USER15','Lia',' 2020-03-17','regular'),
+('USER16','Pradipta',' 2022-03-29','premium'),
+('USER17','Tezar',' 2019-10-21','premium'),
+('USER18','Fabrian',' 2019-01-19','premium'),
+('USER19','Rizqi',' 2022-02-19','regular'),
+('USER20','Hanung',' 2020-07-15','premium'),
+('USER21','Namira',' 2018-12-27','premium'),
+('USER22','Paramitha',' 2021-08-03','premium'),
+('USER23','Jeni',' 2022-03-22','premium'),
+('USER24','Fahrian',' 2019-08-09','premium'),
+('USER25','Angga',' 2021-02-17','regular'),
+('USER26','Vina',' 2017-08-05','premium'),
+('USER27','Adistya',' 2019-12-14','regular'),
+('USER28','Rayhan',' 2018-04-30','premium'),
+('USER29','Nadia',' 2021-10-05','regular'),
+('USER30','Fitri',' 2019-07-10','regular'),
+('USER31','Ihsan',' 2020-05-15','regular'),
+('USER32','Firsyah',' 2021-09-22','regular'),
+('USER33','Melanie',' 2018-05-03','premium'),
+('USER34','Syila',' 2018-05-31','premium'),
+('USER35','Saffa',' 2020-04-26','regular');
+
+
+-- ALTERS
+ALTER TABLE Produser
+ADD CONSTRAINT PK_id_prod PRIMARY KEY (id_prod);
+--
+ALTER TABLE Penyanyi
+ADD CONSTRAINT PK_id_penyanyi PRIMARY KEY (id_penyanyi);
+ALTER TABLE Penyanyi
+ADD CONSTRAINT FK_id_prod FOREIGN KEY (id_prod) REFERENCES Produser;
+--
+ALTER TABLE Lagu
+ADD CONSTRAINT PK_id_lagu PRIMARY KEY (id_lagu);
+ALTER TABLE Lagu
+ADD CONSTRAINT FK_id_penyanyi FOREIGN KEY (id_penyanyi) REFERENCES Penyanyi;
+--
+ALTER TABLE Award
+ADD CONSTRAINT PK_id_award PRIMARY KEY (id_award);
+--
+ALTER TABLE Kategori
+ADD CONSTRAINT PK_id_kategori PRIMARY KEY (id_kategori);
+ALTER TABLE Kategori
+ADD CONSTRAINT FK_id_lagu FOREIGN KEY (id_lagu) REFERENCES Lagu;
+ALTER TABLE Kategori
+ADD CONSTRAINT FK_id_award FOREIGN KEY (id_award) REFERENCES Award;
+--
+ALTER TABLE Pengguna
+ADD CONSTRAINT PK_id_pengguna PRIMARY KEY (id_pengguna);
+--
+ALTER TABLE [Detail Pengguna]
+ADD CONSTRAINT PK_id_det_pengguna PRIMARY KEY (id_det_pengguna);
+ALTER TABLE [Detail Pengguna]
+ADD CONSTRAINT FK_id_pengguna FOREIGN KEY (id_pengguna) REFERENCES Pengguna;
+ALTER TABLE [Detail Pengguna]
+ADD CONSTRAINT FK_id_lagu2 FOREIGN KEY (id_lagu) REFERENCES Lagu;
+--
