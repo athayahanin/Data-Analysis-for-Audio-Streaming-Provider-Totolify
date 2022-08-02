@@ -1,5 +1,5 @@
 -- Database Creation Syntax
-CREATE DATABASE TOTOLFY_Database
+CREATE DATABASE TOTOLIFY_Database
 
 -- Table Creation Syntax
 CREATE TABLE Produser
