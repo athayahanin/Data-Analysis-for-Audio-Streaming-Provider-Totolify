@@ -1,0 +1,118 @@
+
+
+/*Question 1: Sebagai bahan evaluasi, Totolify ingin mengetahui paket pelanggan pada tahun 2020. Maka, tampilkan jenis paket dan jumlah pengguna yang menggunakan paket tersebut pada tahun 2020!*/
+
+SELECT paket, COUNT(paket) as Jumlah
+FROM Pengguna
+WHERE tgl_bergabung LIKE '2020%' 
+GROUP BY paket;
+
+
+/*Question 2: Genre Indie merupakan genre yang semakin populer di kalangan masyarakat. Maka dari itu, Totolify ingin melihat lagu apa saja yang termasuk segala jenis genre indie. Tampilkan judul lagu, genre, dan jumlah pendengar dengan berbagai jenis genre indie  (Indie Pop, Alternative/Indie, dan lain sebagainya) diurutkan berdasarkan jumlah pendengar.*/
+
+SELECT judul_lagu, listeners, genre
+FROM Lagu
+WHERE genre LIKE '%Indie%'
+ORDER BY listeners
+
+
+/*Question 3: Pihak Totolify ingin melihat lagu pop apa saja yang memiliki pendengar di atas 10.000.000 untuk membuat playlist top chart pop bulan ini. Maka dari itu, tampilkan judul lagu, genre, jumlah pendengar yang bergenre pop dan jumlah pendengarnya lebih dari 10.000.000. Urutkan dari lagu dengan jumlah pendengar tertinggi!*/
+
+SELECT judul_lagu, genre, listeners 
+FROM Lagu 
+WHERE listeners>10000000 AND genre LIKE 'Pop' 
+ORDER BY listeners DESC;
+
+
+/*Question 4: Totolify ingin membuat playlist yang berisi lagu asal Korea. Lagu yang akan dimasukkan ke dalam playlist dapat diambil dari lagu yang telah memenangkan award yang diselenggarakan di Korea. Tampilkan nama penyanyi dan judul lagu dari lagu yang berhasil memenangkan award yang diselenggarakan di Korea yang diurutkan dari data jumlah listeners global dari lagu yang terbanyak. */
+
+SELECT penyanyi.nama_penyanyi, Lagu.judul_lagu
+FROM Lagu INNER JOIN penyanyi
+ON Lagu.id_penyanyi = penyanyi.id_penyanyi
+WHERE Lagu.id_lagu IN
+	(SELECT id_lagu
+	FROM Kategori INNER JOIN Award
+	ON Kategori.id_award = Award.id_award
+	WHERE negara_award = 'Korea')
+ORDER BY Lagu.listeners DESC
+
+
+/*Question 5: Totolify ingin membuat playlist baru berisi 10 lagu. Lagu yang akan dimasukkan ke dalam playlist merupakan lagu dengan data jumlah listeners global yang terbanyak. Totolify ingin mengetahui 10 lagu dengan dengan data jumlah listeners global yang terbanyak. Maka, tampilkan nama produser, nama penyanyi, judul lagu, dan jumlah listeners global lagu tersebut yang diurutkan dari data jumlah listeners global terbanyak. */
+
+SELECT TOP 10 Produser.nama_prod, Penyanyi.nama_penyanyi, Lagu.judul_lagu, Lagu.listeners
+FROM Lagu INNER JOIN Penyanyi
+ON Lagu.Id_penyanyi = Penyanyi.id_penyanyi
+INNER JOIN Produser
+ON produser.id_prod = Penyanyi.id_prod
+ORDER BY LISTENERS DESC
+
+
+/*Question 6: Totolify ingin menampilkan iklan kepada para pengguna. Iklan diberikan kepada para pengguna berpaket regular yang setidaknya sudah mendengarkan lagu 2 kali atau lebih di minggu ini. Tampilkan nama pengguna yang akan mendapatkan iklan!*/
+
+SELECT nama_pengguna, tgl_bergabung 
+FROM Pengguna 
+WHERE id_pengguna IN 
+  (SELECT id_pengguna FROM [Detail Pengguna] GROUP BY id_pengguna HAVING COUNT([Detail
+  Pengguna].id_pengguna)>=2) AND paket LIKE 'regular';
+
+
+/*Question 7: Sebagai genre yang sangat populer di kalangan masyarakat, Totolify ingin melihat lagu bergenre pop mana saja yang paling sering didengar oleh masyarakat. Maka dari itu, bantu Totolify untuk menampilkan nama penyanyi, judul lagu, pendengar, dan genre dari jumlah pendengar terbesar hingga terkecil.*/
+
+SELECT Penyanyi.nama_penyanyi, Lagu.judul_lagu, Lagu.listeners, Lagu.genre
+FROM Penyanyi INNER JOIN Lagu
+ON Penyanyi.id_penyanyi = Lagu.id_penyanyi
+WHERE genre = 'Pop'
+ORDER BY listeners DESC
+
+
+/*Question 8: Totolify ingin mengetahui performa dari produser yang menghasilkan lagu yang terdapat pada Totolify. Performa produser dapat diukur dari penghasilan yang diperoleh oleh produser. Produser mendapatkan penghasilan berupa komisi yang didapatkan dari data jumlah listeners global dari lagu yang diproduksi. Besar komisi yang diterima produser adalah 10%. Maka, tampilkan nama produser dan penghasilan produser dari lagu-lagu yang telah diproduksi dan diurutkan dari penghasilan terbesar.*/
+
+SELECT Produser.nama_prod, SUM(0.10*Lagu.listeners) as Penghasilan
+FROM Produser INNER JOIN Penyanyi
+ON Produser.id_prod = Penyanyi.Id_prod
+INNER JOIN Lagu
+ON Lagu.id_penyanyi = Penyanyi.id_penyanyi
+GROUP BY Produser.nama_prod
+ORDER BY Penghasilan DESC;
+
+
+/*Question 9: Produser dikatakan semakin baik jika penyanyi-penyanyi dengan label produser tersebut memiliki monthly listeners yang banyak pula. Dari sekian banyak produser, Totolify ingin mengetahui produser mana yang bekerja sama dengan penyanyi dengan monthly listeners terbanyak. Maka dari itu, tampilkan nama produser dengan jumlah monthly listener terbanyak dan disertai nilai dari jumlah monthly listeners seluruh penyanyi dengan produser tersebut.
+
+Hint: berapa total monthly listeners untuk setiap produser dan siapa produser dengan total monthly listeners terbanyak?*/
+
+SELECT Produser.nama_prod, SUM (Penyanyi.monthly_listeners) AS [Total Pendengar]
+FROM Produser INNER JOIN Penyanyi
+ON  Produser.id_prod = Penyanyi.id_prod
+GROUP BY Produser.nama_prod
+HAVING SUM (monthly_listeners) =
+	(SELECT MAX ([Total]) FROM
+		(SELECT SUM (monthly_listeners) AS [Total]
+		FROM Penyanyi
+		GROUP BY id_prod)Penyanyi);
+
+
+/*Question 10: Totolify ingin mengapresiasi penyanyi yang memiliki award terbanyak dengan membuat pemberitahuan pada home page pengguna. Maka dari itu, tampilkan nama penyanyi dan jumlah award yang dimenangkan oleh penyanyi tersebut, kemudian urutkan dari paling besar ke kecil. */
+
+SELECT Penyanyi.nama_penyanyi, COUNT (Kategori.id_kategori) AS [Jumlah Award] 
+FROM Lagu INNER JOIN Kategori
+ON Lagu.id_lagu = Kategori.id_lagu
+INNER JOIN Penyanyi
+ON Penyanyi.id_penyanyi = Lagu.id_penyanyi
+WHERE Lagu.id_lagu IN
+	(SELECT Lagu.id_lagu
+	FROM Kategori 
+	WHERE Kategori.id_lagu = Lagu.id_lagu)
+GROUP BY Penyanyi.nama_penyanyi
+ORDER BY COUNT (Kategori.id_kategori) DESC
+
+
+/*Question 11: Di penghujung tahun, Totolify ingin membuat #TotolifyWrap guna melihat loyalitas para penggunanya dalam menggunakan aplikasi Totolify. Loyalitas pengguna dapat dilihat dari sudah berapa lama pengguna menggunakan aplikasi Totolify dan seberapa sering pengguna mendengarkan lagu di Totolify. Tampilkan nama pengguna dengan waktu berlangganan terlama, lama berlangganan dalam hari (sampai hari ini), frekuensi mendengarkan lagu di Totolify, serta penyanyi yang sering didengarkannya!*/
+
+SELECT Pengguna.nama_pengguna, DATEDIFF (DAY, Pengguna.tgl_bergabung, '2022-08-02') AS lama_berlengganan_hari, COUNT([Detail Pengguna].id_pengguna) AS frekuensi_pendengaran, Penyanyi.nama_penyanyi
+FROM Pengguna INNER JOIN [Detail Pengguna] 
+ON Pengguna.id_pengguna=[Detail Pengguna].id_pengguna INNER JOIN Lagu 
+ON [Detail Pengguna].id_lagu=Lagu.id_lagu INNER JOIN Penyanyi 
+ON Penyanyi.id_penyanyi=Lagu.id_penyanyi
+WHERE DATEDIFF(DAY, Pengguna.tgl_bergabung, '2022-04-23') = 
+  (SELECT(MAX (DATEDIFF(DAY, Pengguna.tgl_bergabung, '2022-04-23'))) FROM Pengguna)
+GROUP BY Pengguna.nama_pengguna, DATEDIFF (DAY, Pengguna.tgl_bergabung, '2022-04-23'), Penyanyi.nama_penyanyi;
