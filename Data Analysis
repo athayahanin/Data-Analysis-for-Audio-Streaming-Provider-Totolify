@@ -1,5 +1,4 @@
 
-
 /*Question 1: Sebagai bahan evaluasi, Totolify ingin mengetahui paket pelanggan pada tahun 2020. Maka, tampilkan jenis paket dan jumlah pengguna yang menggunakan paket tersebut pada tahun 2020!*/
 
 SELECT paket, COUNT(paket) as Jumlah
