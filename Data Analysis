@@ -1,5 +1,5 @@
 
-/*Question 1: Sebagai bahan evaluasi, Totolify ingin mengetahui paket pelanggan pada tahun 2020. 
+‼️/*Question 1: Sebagai bahan evaluasi, Totolify ingin mengetahui paket pelanggan pada tahun 2020. 
 Maka, tampilkan jenis paket dan jumlah pengguna yang menggunakan paket tersebut pada tahun 2020!*/
 
 SELECT paket, COUNT(paket) as Jumlah
@@ -8,7 +8,7 @@ WHERE tgl_bergabung LIKE '2020%'
 GROUP BY paket;
 
 
-/*Question 2: Genre Indie merupakan genre yang semakin populer di kalangan masyarakat. 
+‼️/*Question 2: Genre Indie merupakan genre yang semakin populer di kalangan masyarakat. 
 Maka dari itu, Totolify ingin melihat lagu apa saja yang termasuk segala jenis genre indie. 
 Tampilkan judul lagu, genre, dan jumlah pendengar dengan berbagai jenis genre indie  (Indie Pop, Alternative/Indie, dan lain sebagainya) 
 diurutkan berdasarkan jumlah pendengar.*/
@@ -19,7 +19,7 @@ WHERE genre LIKE '%Indie%'
 ORDER BY listeners
 
 
-/*Question 3: Pihak Totolify ingin melihat lagu pop apa saja yang memiliki pendengar di atas 10.000.000 untuk membuat playlist top chart pop bulan ini. 
+‼️/*Question 3: Pihak Totolify ingin melihat lagu pop apa saja yang memiliki pendengar di atas 10.000.000 untuk membuat playlist top chart pop bulan ini. 
 Maka dari itu, tampilkan judul lagu, genre, jumlah pendengar yang bergenre pop dan jumlah pendengarnya lebih dari 10.000.000. 
 Urutkan dari lagu dengan jumlah pendengar tertinggi!*/
 
@@ -29,7 +29,7 @@ WHERE listeners>10000000 AND genre LIKE 'Pop'
 ORDER BY listeners DESC;
 
 
-/*Question 4: Totolify ingin membuat playlist yang berisi lagu asal Korea. 
+‼️/*Question 4: Totolify ingin membuat playlist yang berisi lagu asal Korea. 
 Lagu yang akan dimasukkan ke dalam playlist dapat diambil dari lagu yang telah memenangkan award yang diselenggarakan di Korea. 
 Tampilkan nama penyanyi dan judul lagu dari lagu yang berhasil memenangkan award yang diselenggarakan di Korea 
 yang diurutkan dari data jumlah listeners global dari lagu yang terbanyak. */
@@ -45,7 +45,7 @@ WHERE Lagu.id_lagu IN
 ORDER BY Lagu.listeners DESC
 
 
-/*Question 5: Totolify ingin membuat playlist baru berisi 10 lagu. 
+‼️/*Question 5: Totolify ingin membuat playlist baru berisi 10 lagu. 
 Lagu yang akan dimasukkan ke dalam playlist merupakan lagu dengan data jumlah listeners global yang terbanyak. 
 Totolify ingin mengetahui 10 lagu dengan dengan data jumlah listeners global yang terbanyak. 
 Maka, tampilkan nama produser, nama penyanyi, judul lagu, dan jumlah listeners global lagu tersebut yang diurutkan dari data jumlah listeners global terbanyak. */
@@ -58,7 +58,7 @@ ON produser.id_prod = Penyanyi.id_prod
 ORDER BY LISTENERS DESC
 
 
-/*Question 6: Totolify ingin menampilkan iklan kepada para pengguna. 
+‼️/*Question 6: Totolify ingin menampilkan iklan kepada para pengguna. 
 Iklan diberikan kepada para pengguna berpaket regular yang setidaknya sudah mendengarkan lagu 2 kali atau lebih di minggu ini. 
 Tampilkan nama pengguna yang akan mendapatkan iklan!*/
 
@@ -69,7 +69,7 @@ WHERE id_pengguna IN
   Pengguna].id_pengguna)>=2) AND paket LIKE 'regular';
 
 
-/*Question 7: Sebagai genre yang sangat populer di kalangan masyarakat, Totolify ingin melihat lagu bergenre pop mana saja yang paling sering didengar oleh masyarakat. 
+‼️/*Question 7: Sebagai genre yang sangat populer di kalangan masyarakat, Totolify ingin melihat lagu bergenre pop mana saja yang paling sering didengar oleh masyarakat. 
 Maka dari itu, bantu Totolify untuk menampilkan nama penyanyi, judul lagu, pendengar, dan genre dari jumlah pendengar terbesar hingga terkecil.*/
 
 SELECT Penyanyi.nama_penyanyi, Lagu.judul_lagu, Lagu.listeners, Lagu.genre
@@ -79,7 +79,7 @@ WHERE genre = 'Pop'
 ORDER BY listeners DESC
 
 
-/*Question 8: Totolify ingin mengetahui performa dari produser yang menghasilkan lagu yang terdapat pada Totolify. 
+‼️/*Question 8: Totolify ingin mengetahui performa dari produser yang menghasilkan lagu yang terdapat pada Totolify. 
 Performa produser dapat diukur dari penghasilan yang diperoleh oleh produser. 
 Produser mendapatkan penghasilan berupa komisi yang didapatkan dari data jumlah listeners global dari lagu yang diproduksi. 
 Besar komisi yang diterima produser adalah 10%. 
@@ -94,7 +94,7 @@ GROUP BY Produser.nama_prod
 ORDER BY Penghasilan DESC;
 
 
-/*Question 9: Produser dikatakan semakin baik jika penyanyi-penyanyi dengan label produser tersebut memiliki monthly listeners yang banyak pula.
+‼️/*Question 9: Produser dikatakan semakin baik jika penyanyi-penyanyi dengan label produser tersebut memiliki monthly listeners yang banyak pula.
 Dari sekian banyak produser, Totolify ingin mengetahui produser mana yang bekerja sama dengan penyanyi dengan monthly listeners terbanyak. 
 Maka dari itu, tampilkan nama produser dengan jumlah monthly listener terbanyak dan disertai nilai dari jumlah monthly listeners seluruh penyanyi 
 dengan produser tersebut.
@@ -112,7 +112,7 @@ HAVING SUM (monthly_listeners) =
 		GROUP BY id_prod)Penyanyi);
 
 
-/*Question 10: Totolify ingin mengapresiasi penyanyi yang memiliki award terbanyak dengan membuat pemberitahuan pada home page pengguna. 
+‼️/*Question 10: Totolify ingin mengapresiasi penyanyi yang memiliki award terbanyak dengan membuat pemberitahuan pada home page pengguna. 
 Maka dari itu, tampilkan nama penyanyi dan jumlah award yang dimenangkan oleh penyanyi tersebut, kemudian urutkan dari paling besar ke kecil. */
 
 SELECT Penyanyi.nama_penyanyi, COUNT (Kategori.id_kategori) AS [Jumlah Award] 
@@ -128,7 +128,7 @@ GROUP BY Penyanyi.nama_penyanyi
 ORDER BY COUNT (Kategori.id_kategori) DESC
 
 
-/*Question 11: Di penghujung tahun, Totolify ingin membuat #TotolifyWrap guna melihat loyalitas para penggunanya dalam menggunakan aplikasi Totolify. 
+‼️/*Question 11: Di penghujung tahun, Totolify ingin membuat #TotolifyWrap guna melihat loyalitas para penggunanya dalam menggunakan aplikasi Totolify. 
 Loyalitas pengguna dapat dilihat dari sudah berapa lama pengguna menggunakan aplikasi Totolify dan seberapa sering pengguna mendengarkan lagu di Totolify. 
 Tampilkan nama pengguna dengan waktu berlangganan terlama, lama berlangganan dalam hari (sampai hari ini), frekuensi mendengarkan lagu di Totolify, 
 serta penyanyi yang sering didengarkannya!*/
